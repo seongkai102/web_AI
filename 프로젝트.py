@@ -9,7 +9,17 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_squared_error
 
 
-df = pd.read_csv("C:\\Users\\lsy45\\OneDrive\\바탕 화면\\data.csv",encoding='cp949')
+github_raw_url = 'https://raw.githubusercontent.com/계정명/저장소명/브랜치명/파일경로/파일명.csv'
+
+# 깃허브 RAW 파일을 DataFrame으로 불러오기
+@st.cache
+def load_data(url):
+    response = requests.get(url)
+    df = pd.read_csv(io.StringIO(response.text))
+    return df
+
+# 데이터 불러오기
+df = load_data(github_raw_url)
 
 df['일자'] = pd.to_datetime(df['일자']).astype(np.int64) // 10**9 
 
