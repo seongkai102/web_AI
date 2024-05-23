@@ -107,7 +107,7 @@ elif choose == "평균가격 그래프":
     st.title("평균가격 그래프")
     
     st.text("그래프 출력시 시간이 걸립니다.")
-    st.text("조금만 기다려 주세요")
+    st.text("조금만 기다려 주세요.")
 
     df['일자'] = pd.to_datetime(df['일자'], format='%Y%m%d')
 
