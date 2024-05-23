@@ -7,19 +7,22 @@ import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_squared_error
+import requests
+import io
 
+# Dropbox 파일 다운로드 링크
+github_raw_link = 'https://raw.githubusercontent.com/seongkai102/web_AI/main/data.csv'
 
-github_raw_url = 'https://raw.githubusercontent.com/계정명/저장소명/브랜치명/파일경로/파일명.csv'
-
-# 깃허브 RAW 파일을 DataFrame으로 불러오기
-@st.cache
-def load_data(url):
+# 파일 다운로드 함수
+def download_file(url):
     response = requests.get(url)
-    df = pd.read_csv(io.StringIO(response.text))
-    return df
+    return response.content
 
-# 데이터 불러오기
-df = load_data(github_raw_url)
+# 파일 다운로드
+csv_content = download_file(github_raw_link)
+
+# 다운로드한 파일 불러오기
+df = pd.read_csv(io.BytesIO(csv_content), encoding='cp949')
 
 df['일자'] = pd.to_datetime(df['일자']).astype(np.int64) // 10**9 
 
@@ -69,7 +72,10 @@ else:
     st.title('추후에 업데이트 예정입니다')
 
 #파일 다시 불러오기   
-df = pd.read_csv("C:\\Users\\lsy45\\OneDrive\\바탕 화면\\data.csv",encoding='cp949')
+
+
+# 다운로드한 파일 불러오기
+df = pd.read_csv(io.BytesIO(csv_content), encoding='cp949')
 #열삭제 
 df = df.drop(columns=["품목명", "수입량", "평년반입량(KG)", "평년반입량증감률(%)"])
 
