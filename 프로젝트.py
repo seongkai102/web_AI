@@ -10,7 +10,18 @@ from sklearn.metrics import mean_squared_error
 import requests
 import io
 
+github_raw_link = 'https://raw.githubusercontent.com/seongkai102/web_AI/main/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8.py'
 
+# 파일 다운로드 함수
+def download_file(url):
+    response = requests.get(url)
+    return response.content
+
+# 파일 다운로드
+script_content = download_file(github_raw_link)
+
+# 다운로드한 파일을 스트링으로 변환하여 실행
+exec(script_content)
 
 # Dropbox 파일 다운로드 링크
 github_raw_link = 'https://raw.githubusercontent.com/seongkai102/web_AI/main/data.csv'
