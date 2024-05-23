@@ -10,33 +10,27 @@ from sklearn.metrics import mean_squared_error
 import requests
 import io
 
-github_raw_link = 'https://raw.githubusercontent.com/seongkai102/web_AI/main/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8.py'
+github_raw_link_script = 'https://raw.githubusercontent.com/seongkai102/web_AI/main/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8.py'
+github_raw_link_csv = 'https://raw.githubusercontent.com/seongkai102/web_AI/main/data.csv'
 
 # 파일 다운로드 함수
 def download_file(url):
     response = requests.get(url)
     return response.content
 
-# 파일 다운로드
-script_content = download_file(github_raw_link)
+# 스크립트 다운로드
+script_content = download_file(github_raw_link_script)
 
-# 다운로드한 파일을 스트링으로 변환하여 실행
+# CSV 파일 다운로드
+csv_content = download_file(github_raw_link_csv)
+
+# 다운로드한 스크립트 파일을 스트링으로 변환하여 실행
 exec(script_content)
 
-# Dropbox 파일 다운로드 링크
-github_raw_link = 'https://raw.githubusercontent.com/seongkai102/web_AI/main/data.csv'
-
-# 파일 다운로드 함수
-def download_file(url):
-    response = requests.get(url)
-    return response.content
-
-# 파일 다운로드
-csv_content = download_file(github_raw_link)
-
-# 다운로드한 파일 불러오기
+# CSV 파일을 데이터프레임으로 로드
 df = pd.read_csv(io.BytesIO(csv_content), encoding='cp949')
 
+# 날짜 변환
 df['일자'] = pd.to_datetime(df['일자']).astype(np.int64) // 10**9 
 
 df_shifted = df.shift(fill_value=0)
@@ -85,8 +79,6 @@ else:
     st.title('추후에 업데이트 예정입니다')
 
 #파일 다시 불러오기   
-
-
 # 다운로드한 파일 불러오기
 df = pd.read_csv(io.BytesIO(csv_content), encoding='cp949')
 #열삭제 
