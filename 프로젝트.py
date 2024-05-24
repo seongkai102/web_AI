@@ -106,19 +106,21 @@ elif choose == "평균가격 그래프":
 
     st.title("평균가격 그래프")
     
-    st.text("그래프 출력시 시간이 걸립니다.")
-    st.text("조금만 기다려 주세요.")
+    st.text("그래프 출력시 시간이 걸립니다. 조금만 기다려 주세요.")
 
     df['일자'] = pd.to_datetime(df['일자'], format='%Y%m%d')
 
     # 그래프 그리기
     fig, ax = plt.subplots()
+    plt.rcParams['font.family'] ='Malgun Gothic'
+    plt.rcParams['axes.unicode_minus'] =False
+
     ax.plot(df['일자'], df['평균가격'], color='blue')  # 마커 제거
     ax.set_xlim(pd.Timestamp('2019-01-03'), pd.Timestamp('2023-12-30'))  # x축 범위
     ax.set_ylim(0, 100000)  # y축 범위
-    ax.set_xlabel('Date')  # x 라벨
-    ax.set_ylabel('Price(potato)')  # y 라벨
-    ax.set_title("Average Price")  # 그래프 이름
+    ax.set_xlabel('일자')  # x 라벨
+    ax.set_ylabel('가격(KRW, ₩)')  # y 라벨
+    ax.set_title("평균 가격")  # 그래프 이름
     plt.xticks(rotation=45)  # x축 레이블 회전
     # 그래프 표시
     plt.tight_layout()
