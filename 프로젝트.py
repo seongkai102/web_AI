@@ -56,8 +56,8 @@ with st.sidebar: #사이드 바
     choose = option_menu("price", ["인공지능 예측", "평균가격 그래프"],
         menu_icon="bi bi-spotify", default_index=0,
         styles={
-        "container": {"padding": "5!important", "background-color": "#fafafa"},
-        "icon": {"color": "orange", "font-size": "25px"},        
+        "container": {"padding": "5!important", "background-color": "#ebc659"},
+        "icon": {"color": "black", "font-size": "25px"},        
         "nav-link": {"font-size": "16px", "text-align": "left", "margin":"0px", "--hover-color": "#eee",
                     "color": "black"},  # 텍스트 색상을 여기서 변경
         "nav-link-selected": {"background-color": "#02ab21"},
