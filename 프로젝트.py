@@ -53,7 +53,7 @@ predicted_price = predict_price(model, input_date)
 ###################################################
 
 with st.sidebar: #사이드 바
-    choose = option_menu("price", ["인공지능 예측", "평균가격 그래프"],
+    choose = option_menu("TEAM 새싹's", ["인공지능 예측", "평균가격 그래프"],
         menu_icon="bi bi-spotify", default_index=0,
         styles={
         "container": {"padding": "5!important", "background-color": "#ebc659"},
