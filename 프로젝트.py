@@ -96,7 +96,7 @@ if choose == "인공지능 예측":
      
     st.title("인공지능 가격예측")
     st.subheader("오늘의 감자 예측가격\n(감자 KG당 가격)")
-    st.subheader(f"{now.year}년 {now.month}월 {now.day}일 :green[{round(predicted_price)}]원(:dollar:)")
+    st.subheader(f"{now.year}년 {now.month}월 {now.day}일 :green[{round(predicted_price)}]원")
     st.title("")
     st.metric(label="작년과 오늘의 가격차이", value=f"예측가격 {round(predicted_price)}원", 
               delta=f"{round(predicted_price - result)}") 
