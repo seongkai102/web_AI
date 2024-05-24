@@ -112,6 +112,7 @@ elif choose == "평균가격 그래프":
     df['일자'] = pd.to_datetime(df['일자'], format='%Y%m%d')
 
     # 그래프 그리기
+    fig, ax = plt.subplots()
     ax.plot(df['일자'], df['평균가격'], color='blue')  # 마커 제거
     ax.set_xlim(pd.Timestamp('2019-01-03'), pd.Timestamp('2023-12-30'))  # x축 범위
     ax.set_ylim(0, 100000)  # y축 범위
