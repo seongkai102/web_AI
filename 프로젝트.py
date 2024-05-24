@@ -111,12 +111,6 @@ elif choose == "평균가격 그래프":
     df['일자'] = pd.to_datetime(df['일자'], format='%Y%m%d')
 
     # 그래프 그리기
-    font_path = 'fonts/NotoSansCJK-Regular.ttc'  # 실제 폰트 파일 경로로 변경
-    font_name = font_manager.FontProperties(fname=font_path).get_name()
-    rc('font', family=font_name)
-        fig, ax = plt.subplots()
-        plt.rcParams['font.family'] ='Malgun Gothic'
-        plt.rcParams['axes.unicode_minus'] =False
 
     ax.plot(df['일자'], df['평균가격'], color='blue')  # 마커 제거
     ax.set_xlim(pd.Timestamp('2019-01-03'), pd.Timestamp('2023-12-30'))  # x축 범위
