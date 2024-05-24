@@ -106,12 +106,12 @@ elif choose == "평균가격 그래프":
 
     st.title("평균가격 그래프")
     
-    st.text("그래프 출력시 시간이 걸립니다. 조금만 기다려 주세요.")
+    st.text("그래프 출력시 시간이 걸립니다")
+    st.text("조금만 기다려 주세요.")
 
     df['일자'] = pd.to_datetime(df['일자'], format='%Y%m%d')
 
     # 그래프 그리기
-
     ax.plot(df['일자'], df['평균가격'], color='blue')  # 마커 제거
     ax.set_xlim(pd.Timestamp('2019-01-03'), pd.Timestamp('2023-12-30'))  # x축 범위
     ax.set_ylim(0, 100000)  # y축 범위
