@@ -10,7 +10,7 @@ from sklearn.metrics import mean_squared_error
 import requests
 import io
 
-# Dropbox 파일 다운로드 링크
+# github 파일 다운로드 링크
 github_raw_link = 'https://raw.githubusercontent.com/seongkai102/web_AI/main/data.csv'
 
 # 파일 다운로드 함수
