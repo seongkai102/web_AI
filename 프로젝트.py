@@ -101,7 +101,7 @@ if choose == "인공지능 예측":
     st.title("")
     st.metric(label="작년과 오늘의 가격차이", value=f"예측가격 {round(predicted_price)}원", 
               delta=f"{round(predicted_price - result)} ₩") 
-    st.write(':red[빨간] 글씨가 가격차이입니다.')
+    st.write(':red[빨간], :green[초록] 글씨가 가격차이입니다.')
     
 elif choose == "평균가격 그래프":
     st.session_state.page = "page1"
