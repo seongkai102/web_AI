@@ -64,7 +64,6 @@ with st.sidebar: #사이드 바
         }
         )
 
-
 now= datetime.now()
 
 if now.year <= 2024:
@@ -79,17 +78,16 @@ df = df.drop(columns=["품목명", "수입량", "평년반입량(KG)", "평년�
 
 #날짜 옆 값 추출
 found = False
-result = "N/A"
+result = None
 
 for index, row in df.iterrows():
     if row['일자'] == td:
-        result = row['평균가격']  
-        # print(f"일자가 '{td}'인 행의 인덱스: {index}, 옆 열 값: {result}")
+        result = row['평균가격']
         found = True
         break
 if not found:
-    print(f"일자가 '{td}'인 행을 찾을 수 없습니다.")
-    
+    st.error(f"일자가 '{td}'인 행을 찾을 수 없습니다.")
+    result = 0  # 또는 다른 기본값 설정
 
 #출력 부분
 if choose == "인공지능 예측":
@@ -100,8 +98,14 @@ if choose == "인공지능 예측":
     st.subheader(f"{now.year}년 {now.month}월 {now.day}일 :green[{round(predicted_price)}]원")
     st.text("(감자 KG당 가격)")
     st.title("")
+
+    if isinstance(result, (int, float)):
+        delta_value = round(predicted_price - result)
+    else:
+        delta_value = "N/A"
+
     st.metric(label="작년과 오늘의 가격차이", value=f"예측가격 {round(predicted_price)}원", 
-              delta=f"{round(predicted_price - result)} ₩") 
+              delta=f"{delta_value} ₩") 
     st.write(':red[빨간], :green[초록] 글씨가 가격차이입니다.')
     
 elif choose == "평균가격 그래프":
