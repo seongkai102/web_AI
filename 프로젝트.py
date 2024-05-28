@@ -89,7 +89,8 @@ for index, row in df.iterrows():
         break
 if not found:
     print(f"일자가 '{td}'인 행을 찾을 수 없습니다.")
-
+    
+result = np.asarray(result, dtype=float)
 #출력 부분
 if choose == "인공지능 예측":
     st.session_state.page = "home" 
