@@ -130,8 +130,8 @@ elif choose == "평균가격 그래프":
     ax.plot(df['일자'], df['평균가격'], color='blue')
     ax.set_xlim(pd.Timestamp('2019-01-03'), pd.Timestamp('2023-12-30'))  # x축 범위
     ax.set_ylim(0, 100000)  # y축 범위
-    ax.set_xlabel('일자')  # x 라벨
-    ax.set_ylabel('가격(KRW, ₩)')  # y 라벨
+    ax.set_xlabel('date')  # x 라벨
+    ax.set_ylabel('price(KRW, ₩)')  # y 라벨
     ax.set_title("Average Price")  # 그래프 이름
     plt.xticks(rotation=45)  # x축 레이블 회전
     # 그래프 표시
