@@ -76,37 +76,42 @@ df = pd.read_csv(io.BytesIO(csv_content), encoding='cp949')
 #열삭제 
 df = df.drop(columns=["품목명", "수입량", "평년반입량(KG)", "평년반입량증감률(%)"])
 
+
 #날짜 옆 값 추출
 found = False
-result = None
+result = "N/A"
 
 for index, row in df.iterrows():
     if row['일자'] == td:
-        result = row['평균가격']
+        result = row['평균가격']  
         found = True
         break
 if not found:
-    st.error(f"일자가 '{td}'인 행을 찾을 수 없습니다.")
-    result = 0  # 또는 다른 기본값 설정
+    st.error(f"일자가 '{td}'인 행을 찾을 수 없습니다. 차이값에 오류가 있을수도 있습니다")
+    result = 0
+#값 음수 변환
+a = round(predicted_price - result)
+
+if a < 0:
+    a = a*-1
 
 #출력 부분
 if choose == "인공지능 예측":
     st.session_state.page = "home" 
      
-    st.title("인공지능 가격예측")
-    st.subheader("오늘의 감자 예측가격")
+    st.title("인공지능 감자 가격예측")
+    st.write("(감자 KG당 가격)")
     st.subheader(f"{now.year}년 {now.month}월 {now.day}일 :green[{round(predicted_price)}]원")
-    st.text("(감자 KG당 가격)")
     st.title("")
+    col1, col2 = st.columns(2)
+    col1.metric(label="오늘의 감자 예측 가격", 
+                value=f"{round(predicted_price)}원",
+                delta="")
+    col2.metric(label="작년과 오늘의 가격차이", 
+                value=f"{a}원", 
+              delta=f"{round(predicted_price - result)}원 차이")
 
-    if isinstance(result, (int, float)):
-        delta_value = round(predicted_price - result)
-    else:
-        delta_value = "N/A"
-
-    st.metric(label="작년과 오늘의 가격차이", value=f"예측가격 {round(predicted_price)}원", 
-              delta=f"{delta_value} ₩") 
-    st.write(':red[빨간], :green[초록] 글씨가 가격차이입니다.')
+   
     
 elif choose == "평균가격 그래프":
     st.session_state.page = "page1"
@@ -120,11 +125,13 @@ elif choose == "평균가격 그래프":
 
     # 그래프 그리기
     fig, ax = plt.subplots()
-    ax.plot(df['일자'], df['평균가격'], color='blue')  # 마커 제거
+    plt.rcParams['font.family'] ='Malgun Gothic'
+
+    ax.plot(df['일자'], df['평균가격'], color='blue')
     ax.set_xlim(pd.Timestamp('2019-01-03'), pd.Timestamp('2023-12-30'))  # x축 범위
     ax.set_ylim(0, 100000)  # y축 범위
-    ax.set_xlabel('date')  # x 라벨
-    ax.set_ylabel('price(KRW, ₩)')  # y 라벨
+    ax.set_xlabel('일자')  # x 라벨
+    ax.set_ylabel('가격(KRW, ₩)')  # y 라벨
     ax.set_title("Average Price")  # 그래프 이름
     plt.xticks(rotation=45)  # x축 레이블 회전
     # 그래프 표시
