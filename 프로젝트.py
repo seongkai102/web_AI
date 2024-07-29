@@ -47,7 +47,7 @@ def predict_price(model, date_str):
     predicted_price = model.predict(features)
     return predicted_price[0]
 
-input_date = '2020-02-01'
+input_date = '2024-07-01'
 predicted_price = predict_price(model, input_date)
 
 ###################################################
